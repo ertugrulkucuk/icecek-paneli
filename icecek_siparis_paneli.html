@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>İçecek Sipariş Paneli</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+        h1 { text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        select, button, input[type="checkbox"] { width: 100%; padding: 8px; }
+        .options label { display: inline-block; margin-right: 10px; }
+        #orderList { margin-top: 30px; }
+        .order-item { background: #fff; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<h1>İçecek Sipariş Paneli</h1>
+
+<div class="form-group">
+    <label for="seat">Koltuk Numarası</label>
+    <select id="seat">
+        <option>1A</option>
+        <option>1B</option>
+        <option>1D</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="drink">İçecek Seç</label>
+    <select id="drink">
+        <option>Çay</option>
+        <option>Kahve</option>
+        <option>Kola</option>
+        <option>Portakal</option>
+    </select>
+</div>
+
+<div class="form-group options">
+    <label>Ek Seçenekler:</label>
+    <label><input type="checkbox" value="Sütlü"> Sütlü</label>
+    <label><input type="checkbox" value="Şekerli"> Şekerli</label>
+    <label><input type="checkbox" value="Buzlu"> Buzlu</label>
+    <label><input type="checkbox" value="Limonlu"> Limonlu</label>
+</div>
+
+<button onclick="addOrder()">Siparişi Ekle</button>
+
+<div id="orderList"></div>
+
+<script>
+function addOrder() {
+    const seat = document.getElementById('seat').value;
+    const drink = document.getElementById('drink').value;
+    const checkboxes = document.querySelectorAll('.options input[type="checkbox"]:checked');
+    const options = Array.from(checkboxes).map(cb => cb.value).join(', ');
+
+    const orderText = seat + ' - ' + drink + (options ? ' (' + options + ')' : '');
+
+    const orderDiv = document.createElement('div');
+    orderDiv.className = 'order-item';
+    orderDiv.textContent = orderText;
+
+    document.getElementById('orderList').appendChild(orderDiv);
+
+    // Temizle
+    checkboxes.forEach(cb => cb.checked = false);
+}
+</script>
+
+</body>
+</html>
